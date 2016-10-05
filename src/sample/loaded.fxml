@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextArea fx:id="textOnFile" layoutX="14.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </TextArea>
+      <Label layoutX="20.0" layoutY="21.0" text="File on Disk : " AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="510.0" AnchorPane.topAnchor="21.0" />
+      <Label fx:id="loadedFileLocation" layoutX="94.0" layoutY="21.0" text="&lt;Loaded File&gt;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="21.0" />
+   </children>
+</AnchorPane>
