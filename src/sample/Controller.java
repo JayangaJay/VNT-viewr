@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -41,22 +42,11 @@ public class Controller implements Initializable {
         File selectedFile = fileChooser.showOpenDialog(Main.primaryStage);
         if (selectedFile != null) {
             Main.LoadFile(selectedFile);
-            setCenterBorderPane();
         }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-/*
-        Main.primaryStage.getScene().onDragDoneProperty().addListener(new ChangeListener<EventHandler<? super DragEvent>>() {
-            @Override
-            public void changed(ObservableValue<? extends EventHandler<? super DragEvent>> observable, EventHandler<? super DragEvent> oldValue, EventHandler<? super DragEvent> newValue) {
-                System.out.println("got Changed @IndexController" + oldValue + " -> " + newValue);
-            }
-        });
-
-*/
-//        resources.keySet().forEach(System.out::println);
     }
 
     public BorderPane getCenterBorderPane() {
@@ -69,12 +59,16 @@ public class Controller implements Initializable {
     void setCenterBorderPane() {
         try {
             FXMLLoader loadedPane = new FXMLLoader(getClass().getResource("loaded.fxml"));
-            final loadedController loadedController = loadedPane.getController();
             centerBorderPane = new BorderPane(loadedPane.load());
-
+            final loadedController loadedController = loadedPane.getController();
+            loadedController.setLoadedFileLocation("testeddd");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    void setCenterBorderPane(AnchorPane anchor) {
+        centerBorderPane = new BorderPane(anchor);
     }
 
 }

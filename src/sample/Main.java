@@ -9,7 +9,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.List;
 
 /**
@@ -23,7 +25,7 @@ public class Main extends Application {
     public static Stage primaryStage;
     public static File SelectedFile;
     public List<File> files;
-    private Controller controller;
+    private static Controller controller;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -46,10 +48,8 @@ public class Main extends Application {
             if (db.hasFiles()) {
                 for (File file : db.getFiles()) {
                     if (file.getName().contains(".vnt")) {
-                        files = db.getFiles();
-//                        controller.hideDragLabel();
-                        System.out.println(file.getAbsoluteFile());
-
+//                        setSelectedFile(file.getAbsoluteFile());
+                        LoadFile(file.getAbsoluteFile());
                     } else {
                         JOptionPane.showMessageDialog(null, "Wrong File. Load VNT SelectedFile to view", "Unreadable File", JOptionPane.ERROR_MESSAGE);
                     }
@@ -74,19 +74,29 @@ public class Main extends Application {
         for (String argument : args) {
             System.out.println(argument);
         }
-        /*
-        for(Map.Entry<String, String> paths : System.getenv().entrySet()){
-            System.out.println(paths.getKey()+ " " + paths.getValue());
-        }
-        System.out.println(System.getProperty("user.home") + File.separatorChar + "My Documents");
-        */
         launch(args);
     }
 
     public static void LoadFile(File selectedFile) {
         SelectedFile = selectedFile;
-        if(SelectedFile != null){
-
+//        System.out.println(SelectedFile);
+        if (SelectedFile != null || SelectedFile.isFile()) {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("index.fxml"));
+            try (BufferedReader bufRead = new BufferedReader(new FileReader(SelectedFile))) {
+//                System.out.println();
+                StringBuilder sb = new StringBuilder();
+                String s = bufRead.readLine();
+                while (s != null) {
+                    sb.append(s);
+                    sb.append(System.lineSeparator());
+                    System.out.println(sb);
+                    s = bufRead.readLine();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+//            System.out.println("here ok");
+//            controller.setCenterBorderPane();
         }
     }
 }
