@@ -28,7 +28,7 @@ public class ControllerClass implements Initializable {
         );
         File selectedFile = fileChooser.showOpenDialog(Main.primaryStage);
         if (selectedFile != null) {
-            Main.LoadFile(selectedFile);
+            Main.main.LoadFile(selectedFile);
         }
     }
     @FXML

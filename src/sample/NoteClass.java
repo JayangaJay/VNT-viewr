@@ -121,4 +121,9 @@ public class NoteClass {
             formattedBodyText.append(sentences + "\n");
         }
     }
+
+    @Override
+    public String toString() {
+        return formattedBodyText.toString();
+    }
 }

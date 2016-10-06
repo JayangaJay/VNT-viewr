@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jayanga Jayathilake 2016.08.20 0200H
@@ -23,6 +24,7 @@ public class Main extends Application {
      */
     public static Stage primaryStage;
     public static File SelectedFile;
+    protected static Main main;
     static StringBuilder sb = new StringBuilder();
     private static Controller controller;
     public List<File> files;
@@ -36,66 +38,34 @@ public class Main extends Application {
         for (String argument : args) {
             System.out.println(argument);
         }
-//        DateFormat df = new SimpleDateFormat("yyyyMMdd HHmmss");
-//        try {
-//            String s = "20160623T193540";
-//            String[] x = s.split("T");
-//            System.out.println(df.parse(x[0]+" "+ x[1]));
-//
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
+            System.out.println("Sys Env`s");
+        for(Map.Entry<String, String> paths : System.getenv().entrySet()){
+            System.out.println(paths.getKey()+ " : " + paths.getValue());
+        }
+            System.out.println("Sys Props");
+        for(Map.Entry<Object, Object> paths : System.getProperties().entrySet()){
+            System.out.println(paths.getKey()+ " : " + paths.getValue());
+        }
+//        System.out.println(System.getProperty("user.home") + File.separatorChar + "My Documents");
+
+
+        main = new Main();
         launch(args);
     }
 
-    public static void LoadFile(File selectedFile) {
+    public void LoadFile(File selectedFile) {
         SelectedFile = selectedFile;
-//        System.out.println(SelectedFile);
         if (SelectedFile != null || SelectedFile.isFile()) {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("index.fxml"));
             try {
                 System.out.println("-------------  form note Object ***********   ----------");
                 NoteClass noteClass = new NoteClass(selectedFile);
                 System.out.println(noteClass.getFormattedBodyText());
                 System.out.println("-------------  end Note Obj***********   ----------");
-
+                loadedController loadedContoller = (loadedController) loadNextScene(primaryStage, "loaded.fxml");
+                loadedContoller.setNoteOntoScene(new NoteClass(selectedFile));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            /*
-            try (BufferedReader bufRead = new BufferedReader(new FileReader(SelectedFile))) {
-                String s = bufRead.readLine();
-                while (s != null) {
-                    if (s.startsWith("DCREATED")) {
-                        String date[] = s.split(":")[1].split("T");
-                        DateFormat df = new SimpleDateFormat("yyyyMMdd HHmmss");
-                        System.out.println(df.parse(date[0] + " " + date[1]));
-
-                    } else if (s.startsWith("BODY")) {
-//                        System.out.println(s.substring(13,18));
-                        System.out.println(s.substring(45));
-                        String bodyText = s.substring(45);
-                        String[] split = bodyText.split("=0D=0A");
-                        StringBuilder formattedBodyText = new StringBuilder();
-                        for (String sentences : split) {
-                            System.out.println(sentences);
-                            formattedBodyText.append(sentences + "\n");
-                        }
-                        System.out.println("--------------------");
-
-                        System.out.println(formattedBodyText);
-                    }
-                    sb.append(s);
-                    sb.append(System.lineSeparator());
-//                    System.out.println(s);
-                    s = bufRead.readLine();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            */
-//            System.out.println("here ok");
-//            controller.setCenterBorderPane();
         }
     }
 
@@ -135,5 +105,34 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         this.primaryStage = primaryStage;
+    }
+
+    /**
+     * Load next Scene on given Stage
+     * @param primaryStage Stage going to show Next Scene
+     * @param fxmlLocation FXML file containing next designed scene
+     * @return Controller of FXML file
+     * @throws IOException if there is no such File
+     */
+    Object loadNextScene(Stage primaryStage, String fxmlLocation) throws IOException {
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("loaded.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlLocation));
+        Scene nxtScn = new Scene(loader.load());
+        primaryStage.setScene(nxtScn);
+        primaryStage.show();
+        return loader.getController();
+    }
+
+
+
+    /**
+     * Loading a new Stage on a given window
+     */
+    void showNewStageWithOwner(Stage owner,String fxmlLocaiton) throws IOException {
+        Stage newStage = new Stage();
+        newStage.setTitle("About VNT Viewer");
+        newStage.setFullScreen(false);
+        newStage.initOwner(owner.getScene().getWindow());
+        loadNextScene(newStage,fxmlLocaiton);
     }
 }
