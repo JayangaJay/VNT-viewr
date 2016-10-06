@@ -91,6 +91,7 @@ public class Main extends Application {
 
     /**
      * Load next Scene on given Stage
+     *
      * @param primaryStage Stage going to show Next Scene
      * @param fxmlLocation FXML file containing next designed scene
      * @return Controller of FXML file
@@ -105,18 +106,20 @@ public class Main extends Application {
         return loader.getController();
     }
 
-
-
     /**
      * Loading a new Stage on a given window
+     *
+     * @param owner Owning Stage
+     * @param fxmlLocation NextLoading FXML
+     * @param title Title of the Next Stage
+     * @throws IOException if no such FXML
      */
     void showNewStageWithOwner(Stage owner, String fxmlLocation, String title) throws IOException {
         Stage newStage = new Stage();
-//        newStage.setTitle("About VNT Viewer");
         newStage.setTitle(title);
         newStage.initModality(Modality.APPLICATION_MODAL); // essential to be owner
         newStage.setFullScreen(false);
         newStage.initOwner(owner.getScene().getWindow());
-        loadNextScene(newStage,fxmlLocation);
+        loadNextScene(newStage, fxmlLocation);
     }
 }
