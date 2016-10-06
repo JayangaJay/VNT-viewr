@@ -6,13 +6,13 @@ import javafx.scene.Scene;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Jayanga Jayathilake 2016.08.20 0200H
@@ -35,20 +35,6 @@ public class Main extends Application {
      * @param args
      */
     public static void main(String[] args) {
-        for (String argument : args) {
-            System.out.println(argument);
-        }
-            System.out.println("Sys Env`s");
-        for(Map.Entry<String, String> paths : System.getenv().entrySet()){
-            System.out.println(paths.getKey()+ " : " + paths.getValue());
-        }
-            System.out.println("Sys Props");
-        for(Map.Entry<Object, Object> paths : System.getProperties().entrySet()){
-            System.out.println(paths.getKey()+ " : " + paths.getValue());
-        }
-//        System.out.println(System.getProperty("user.home") + File.separatorChar + "My Documents");
-
-
         main = new Main();
         launch(args);
     }
@@ -57,12 +43,8 @@ public class Main extends Application {
         SelectedFile = selectedFile;
         if (SelectedFile != null || SelectedFile.isFile()) {
             try {
-                System.out.println("-------------  form note Object ***********   ----------");
-                NoteClass noteClass = new NoteClass(selectedFile);
-                System.out.println(noteClass.getFormattedBodyText());
-                System.out.println("-------------  end Note Obj***********   ----------");
-                loadedController loadedContoller = (loadedController) loadNextScene(primaryStage, "loaded.fxml");
-                loadedContoller.setNoteOntoScene(new NoteClass(selectedFile));
+                loadedController loadedController = (loadedController) loadNextScene(primaryStage, "loaded.fxml");
+                loadedController.setNoteOntoScene(new NoteClass(selectedFile));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -128,11 +110,13 @@ public class Main extends Application {
     /**
      * Loading a new Stage on a given window
      */
-    void showNewStageWithOwner(Stage owner,String fxmlLocaiton) throws IOException {
+    void showNewStageWithOwner(Stage owner, String fxmlLocation, String title) throws IOException {
         Stage newStage = new Stage();
-        newStage.setTitle("About VNT Viewer");
+//        newStage.setTitle("About VNT Viewer");
+        newStage.setTitle(title);
+        newStage.initModality(Modality.APPLICATION_MODAL); // essential to be owner
         newStage.setFullScreen(false);
         newStage.initOwner(owner.getScene().getWindow());
-        loadNextScene(newStage,fxmlLocaiton);
+        loadNextScene(newStage,fxmlLocation);
     }
 }

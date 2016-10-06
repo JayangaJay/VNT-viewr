@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,10 +32,18 @@ public class ControllerClass implements Initializable {
             Main.main.LoadFile(selectedFile);
         }
     }
+
     @FXML
     void closeWindow(ActionEvent event) {
         System.exit(0);
     }
 
-
+    @FXML
+    void showAbout(ActionEvent evt) {
+        try {
+            Main.main.showNewStageWithOwner(Main.primaryStage, "about.fxml", "About VNT Viewer");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -7,8 +7,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
-
 /**
  * Created by Jayanga on 10/5/2016.
  */
@@ -56,12 +54,4 @@ public class loadedController extends ControllerClass {
         textOnFile.setEditable(true);
     }
 
-    @FXML
-    void showAbout(ActionEvent evt){
-        try {
-            Main.main.showNewStageWithOwner(Main.primaryStage,"about.fxml");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
