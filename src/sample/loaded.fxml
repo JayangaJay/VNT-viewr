@@ -1,19 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
+<?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.*?>
-
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" fx:controller="sample.loadedController">
    <children>
-      <TextArea fx:id="textOnFile" layoutX="14.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0">
+      <MenuBar layoutX="10.0" layoutY="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="File Properties" />
+                  <MenuItem mnemonicParsing="false" onAction="#LoadFiles" text="Open Files">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="O" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+                  <MenuItem mnemonicParsing="false" onAction="#closeWindow" text="Exit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <TextArea fx:id="textOnFile" editable="false" layoutX="14.0" layoutY="45.0" prefHeight="200.0" prefWidth="200.0" promptText="Editor" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="75.0" />
+      <AnchorPane layoutX="146.0" layoutY="208.0" maxHeight="-Infinity" prefHeight="35.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
          </padding>
-      </TextArea>
-      <Label layoutX="20.0" layoutY="21.0" text="File on Disk : " AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="510.0" AnchorPane.topAnchor="21.0" />
-      <Label fx:id="loadedFileLocation" layoutX="94.0" layoutY="21.0" text="&lt;Loaded File&gt;" AnchorPane.leftAnchor="94.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="21.0" />
+         <children>
+            <ToggleButton mnemonicParsing="false" text="Edit Text" AnchorPane.bottomAnchor="3.0" AnchorPane.rightAnchor="5.0" />
+            <Label layoutX="14.0" layoutY="9.0" text="File on Disk : " AnchorPane.leftAnchor="10.0" />
+            <Label fx:id="loadedFileLocation" layoutX="84.0" layoutY="9.0" prefHeight="17.0" prefWidth="264.0" text="&lt;Loaded File&gt;" />
+         </children>
+      </AnchorPane>
+      <Label layoutX="20.0" layoutY="42.0" text="Created Date : " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="35.0" />
+      <Label layoutX="375.0" layoutY="42.0" text="Last Modified on : " AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="35.0" />
+      <Text layoutX="103.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;created date&gt;" AnchorPane.leftAnchor="103.0" AnchorPane.topAnchor="35.0" />
+      <Text layoutX="476.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="&lt;modified date&gt;" AnchorPane.rightAnchor="35.0" AnchorPane.topAnchor="35.0" />
    </children>
 </AnchorPane>
